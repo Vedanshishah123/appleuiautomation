@@ -33,9 +33,6 @@ apple_ui_framework/
 ├── tests/
 │   ├── __init__.py
 │   └── test_guest_user_journeys.py
-├── utils/
-│   ├── __init__.py
-│   └── file_utils.py
 ```
 
 ## 2. File-by-File Explanation
@@ -92,17 +89,6 @@ How it works:
 - Loads `.env` using `python-dotenv`.
 - Converts text values into useful Python values.
 - Defines settings that are used by the Playwright fixture.
-
-### `utils/file_utils.py`
-
-What it is: Small utility functions for file and folder handling.
-
-Why it is needed: Framework helper logic should be reusable and kept away from tests.
-
-Methods:
-
-- `create_directory(path)`: Creates folders if they do not already exist.
-- `safe_name(value)`: Converts text into a safe filename. This is available for future reporting needs.
 
 ### `conftest.py`
 
@@ -280,24 +266,4 @@ Supported browser values:
 - `firefox`
 - `webkit`
 
-## 5. Locator Strategy Best Practices Used
 
-- Prefer stable accessibility locators such as `aria-label` when available.
-- Prefer meaningful text locators for user-facing links like `Buy`, `Shop`, and `Compare`.
-- Use CSS selectors for navigation links and URL-based anchors.
-- Avoid brittle absolute XPath.
-- Use `.first` when Apple renders multiple matching elements across desktop/mobile navigation.
-- Count locators when validating dynamic lists.
-
-## 6. Future Improvements
-
-- Add CI execution using GitHub Actions or Jenkins.
-- Add PyTest markers when you want selective smoke/sanity/regression execution.
-- Add Allure reporting when you want richer reports.
-- Add browser/device matrix execution.
-- Add retry only for known flaky network scenarios.
-- Add test data files for search terms and product names.
-- Add trace recording on failure.
-- Add custom Allure environment metadata.
-- Add API mocks only if testing an internal application.
-- Add visual comparison tests for stable pages.
