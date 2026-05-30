@@ -5,7 +5,6 @@ import pytest
 from playwright.sync_api import sync_playwright
 
 from config.settings import settings
-from utils.file_utils import create_directory, safe_name
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -17,8 +16,8 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture(autouse=True)
 def create_allure_artifact_dirs():
-    create_directory(settings.ALLURE_RESULTS_DIR)
-    create_directory(settings.SCREENSHOTS_DIR)
+    settings.ALLURE_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    settings.SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 @pytest.fixture
@@ -40,7 +39,7 @@ def page(request):
 
         test_failed = getattr(request.node, "rep_call", None) and request.node.rep_call.failed
         if test_failed:
-            screenshot_name = safe_name(request.node.nodeid)
+            screenshot_name = request.node.nodeid.replace("/", "_").replace("\\", "_").replace(":", "_").replace(" ", "_").replace("[", "").replace("]", "")
             screenshot_path = settings.SCREENSHOTS_DIR / f"{screenshot_name}.png"
             page.screenshot(path=str(screenshot_path), full_page=True)
             allure.attach.file(
