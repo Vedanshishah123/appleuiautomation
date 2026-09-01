@@ -102,3 +102,9 @@ class HomePage(BasePage):
 
     def verify_mobile_menu_visible(self):
         expect(self.global_navigation()).to_be_visible()
+
+    def open_external_url(self, url: str):
+        self.open_url(url)
+
+    def bring_to_front(self):
+        self.page.bring_to_front()
