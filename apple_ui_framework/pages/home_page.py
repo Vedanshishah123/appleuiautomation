@@ -102,3 +102,6 @@ class HomePage(BasePage):
 
     def verify_mobile_menu_visible(self):
         expect(self.global_navigation()).to_be_visible()
+
+    def open_mac_page_from_global_nav(self):
+        self.open_mac_page()
