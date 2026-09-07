@@ -102,3 +102,31 @@ class HomePage(BasePage):
 
     def verify_mobile_menu_visible(self):
         expect(self.global_navigation()).to_be_visible()
+
+    def watch_nav_link(self):
+        return self.global_navigation().get_by_role("link", name="Watch", exact=True)
+
+    def accessories_link(self):
+        return self.page.get_by_role("link", name="Accessories").nth(1)
+
+    def entertainment_link(self):
+        return self.page.get_by_role("link", name="Entertainment", exact=True).first
+
+    def apple_music_link(self):
+        return self.page.get_by_role("link", name="Apple Music").nth(3)
+
+    def open_watch_page(self):
+        self.watch_nav_link().click()
+        self.page.wait_for_load_state("domcontentloaded")
+
+    def open_accessories_page_from_watch(self):
+        self.accessories_link().click()
+        self.page.wait_for_load_state("domcontentloaded")
+
+    def open_entertainment_category(self):
+        self.entertainment_link().click()
+        self.page.wait_for_load_state("domcontentloaded")
+
+    def open_apple_music_page(self):
+        self.apple_music_link().click()
+        self.page.wait_for_load_state("domcontentloaded")
